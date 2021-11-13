@@ -3,7 +3,7 @@ Repositório contendo as especificações do Trabalho 1 da disciplina de LP1
 
 # Documento de Especificação
 
-#Como compilar o projeto
+# Como compilar o projeto
 
 Abra o terminal de sua preferência e execute os seguintes comandos:
 
@@ -15,7 +15,7 @@ make
 
 
 
-#Como executar o projeto
+# Como executar o projeto
 
 Com o projeto compilado, digite a seguinte linha para executar o jogo:
 
@@ -26,7 +26,7 @@ em seguida você é levado para o menu principal do jogo.
 
 
 
-#Funcionalidades não implementadas
+# Funcionalidades não implementadas
 
   - Geração aleatória de palavras;
   - Pontuação extra caso o jogador adivinhe a palavras inteira e quando
