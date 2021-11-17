@@ -12,12 +12,18 @@ class Forca{
     private:
 
         std::string boneco[5][5];   //<!Boneco representando quantos erros o jogador cometeu
+        
+        std::vector<std::string> recebe; //<! Vector que recebe os dados do arquivo
 
-        std::string lido[20][2];    //<!Matriz que recebe os dados do arquivo
+        std::vector<std::string> palavras; //<!Vector que recebe as palavras do arquivo
 
-        std::string palavras[20];   //<!Vetor com as palavras do arquivo
+        std::vector<unsigned int> ocorrencias; //<!Vector que recebe as ocorrencias das palavras
 
-        std::string palavra;        //<!String temporária só pra testar
+        std::vector<int> jafoi; //<!Vector que marca quais palavras já foram utilizadas
+        
+        std::string aux;             //<!auxiliar que recebe dados do arquivo e passa para o vector recebe
+
+        std::string palavra;        //<!Palavra no jogo
 
         std::string nome;           //<!Nome do jogador
 
@@ -25,13 +31,9 @@ class Forca{
 
         std::string arqScores;      //<!Nome recebido pela main do arquivo scores
 
-        std::vector<int> indices;   //<!Indices de palavras com ocorrência abaixo da média.
-
         std::vector<char> carac;  //<!Vector de caracteres já digitados
 
         std::vector<std::string> acertadas; //<!vector que guarda as palavras que foram acertadas pelo jogador
-
-        int nums[20];               //<!Vetor com a ocorrência das palavras
 
         int dificuldade;            //<!Dificuldade do jogo
 
@@ -39,13 +41,19 @@ class Forca{
 
         int pontos = 0;             //<!Pontos feitos pelo jogador
 
-        int palOk = 0;              //<!Palavras acertadas pelo jogador
-
-        int palOkHard = 19;         //<!Contador para auxiliar o funcionamento no modo dificil
-
         bool conf = true;           //<!variavel que confirma se o jogador deseja continuar jogando
 
-        int media;                  //<!Media de ocorrencia das palavras
+        unsigned int media;                  //<!Media de ocorrencia das palavras
+
+        int facil = 0;               //<!Contador de palavras faceis
+
+        int dificil = 0;            //<!Contador de palavras dificeis
+
+        int indice;                 //<!Indice da palavra gerada
+
+        int rodada = 0;             //<!Contador de rodadas
+
+        int contAux = 0;               //<!Contador auxiliar no geraPalavra()
         
     public:
 
