@@ -8,15 +8,18 @@
 using namespace std;
 
 bool Forca::geraPalavra(){
-    cout<<"Gerando palavra, aguarde..."<<endl;
-
     int converte, achou;
     unsigned int soma = 0;
+    string palAux; ///Palavra auxiliar na validação do arquivo
 
     ifstream arq;
 
     ///Só vai carregar os dados na primeira rodada
     if(rodada == 0){
+        cout<<"--------------------------------------------------------------"<<endl;
+        cout<<"Lendo arquivos de palavras e scores... aguarde"<<endl;
+        cout<<"--------------------------------------------------------------"<<endl;
+
         arq.open(arqPalavras, ios::out);
 
         if(arq.is_open()){
@@ -32,12 +35,33 @@ bool Forca::geraPalavra(){
 
         for(int i = 0; i < recebe.size(); i++){
             if(i % 2 == 0){
+                palAux = recebe[i];
+                if(palAux.size() <= 4){
+                    cout<<"Erro! existe palavra com menos de 5 letras no arquivo de palavras!"<<endl;
+                    cout<<"Por favor, verifique o arquivo de palavras."<<endl;
+                    exit(0);
+                }
+
                 palavras.push_back(recebe[i]);
             }
             else{
-                converte = stoi(recebe[i]);
-                soma += converte;
-                ocorrencias.push_back(converte);
+                try{
+                    converte = stoi(recebe[i]);
+                    if(converte < 0){
+                        cout<<"Erro! Alguma palavra está com frequência inválida!"<<endl;
+                        cout<<"Por favor, Verifique o arquivo de palavras."<<endl;
+                        exit(0);
+                    }
+
+                    soma += converte;
+                    ocorrencias.push_back(converte);
+                }
+                ///Pega o erro ao tentar converter string em número, sendo que a string possui caracteres
+                catch(exception e){
+                    cout<<"Erro! Alguma palavra está sem a frequência relativa!"<<endl;
+                    cout<<"Por favor, erifique o arquivo de palavras."<<endl;
+                    exit(0);
+                }
             }
         }
         media = soma/ocorrencias.size();
@@ -51,7 +75,10 @@ bool Forca::geraPalavra(){
                 dificil++;
             }
         }
+        cout<<"Arquivos ok!"<<endl;
+        cout<<"--------------------------------------------------------------"<<endl;
     }
+    cout<<"Gerando palavra, aguarde..."<<endl;
 
     jafoi.push_back(-1);
 
@@ -70,7 +97,6 @@ bool Forca::geraPalavra(){
             if(achou == 0){
                 jafoi.push_back(indice);
                 palavra = palavras[indice];
-                cout<<palavra<<endl; //no caso, retorna a palavra gerada no jogo
                 contAux++;
                 return true;
             }
@@ -129,6 +155,7 @@ bool Forca::geraPalavra(){
         }
         return false;
     }
+    return false;
 }
 
 bool Forca::confirma(){
