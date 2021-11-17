@@ -161,6 +161,7 @@ void Forca::jogo(){
 
             //se nao achou nenhuma letra igual, diminue a chance e chama a funcao para desenhar o boneco
             if(achou == 0){
+                carac.push_back(c);
                 tentativas--;
                 pontos--;
                 desenhaBoneco(tentativas, boneco);
@@ -177,13 +178,6 @@ void Forca::jogo(){
             cout<<endl;
             cout<<"Parabéns! você acertou a palavra!"<<endl;
             acertadas.push_back(palavra);
-
-            if(dificuldade == 1 || dificuldade == 2){
-                palOk++;
-            }
-            else{
-                palOkHard--;
-            }
         }
         else{
             for(int i = 0; i < 5; i++){
