@@ -7,90 +7,126 @@
 
 using namespace std;
 
-int pMedio = 1; //<!Declarei um contador global aqui somente para auxiliar na dificuldade média
-
 bool Forca::geraPalavra(){
-    unsigned int  soma = 0, converte, onde, cont = 0;
+    cout<<"Gerando palavra, aguarde..."<<endl;
+
+    int converte, achou;
+    unsigned int soma = 0;
 
     ifstream arq;
 
-    arq.open(arqPalavras, ios::out);
+    ///Só vai carregar os dados na primeira rodada
+    if(rodada == 0){
+        arq.open(arqPalavras, ios::out);
 
-    ///Só vai rodar na primeira execução, depois fica salvo.
-    if(palOk == 0){
-        ///insere o que está no arquivo em uma matriz
-        for(int i = 0; i < 20; i++){
-            for(int j = 0; j < 2; j++){
-                arq >> lido[i][j];
+        if(arq.is_open()){
+            while(!arq.eof()){
+                arq >> aux;
+                recebe.push_back(aux);
             }
-        }
-
-        ///Separa os numeros dos nomes em diferentes vetores, mas seus indices coincidem
-        for(int i = 0; i < 20; i++){
-            converte = stoi(lido[i][1]);
-            nums[i] = converte;
-            palavras[i] = lido[i][0];
-            soma += converte;
-        }
-        this -> media = soma/20;
-
-        for(int i = 0; nums[i] >= media; i++){
-            //conta quantos elementos estão acima da média
-            cont++;
-        }
-        
-
-        ///para o modo dificil
-        for(int i = 0; i < 20; i++){
-            if(nums[i] < media){
-                indices.push_back(i);
-            }
-        }
-    }
-
-    if(dificuldade == 1 || dificuldade == 2){
-        onde = nums[palOk];
-    }
-    else{
-        onde = nums[palOkHard];
-    }
-    
-    if(dificuldade == 1){
-        if(onde >= media){
-            this -> palavra = palavras[palOk];
-            return true;
-        }
+        }   
         else{
-            return false;
+            cout<<"Erro ao abrir o arquivo!"<<endl;
+            exit(0);
         }
-    }
 
-    else if(dificuldade == 2){
-        if(onde >= media){
-            if(pMedio % 3 == 0){
-                this -> palavra = palavras[palOk + 6];
-                pMedio++;
+        for(int i = 0; i < recebe.size(); i++){
+            if(i % 2 == 0){
+                palavras.push_back(recebe[i]);
             }
             else{
-                this -> palavra = palavras[palOk];
-                pMedio++;
+                converte = stoi(recebe[i]);
+                soma += converte;
+                ocorrencias.push_back(converte);
             }
-            return true;
         }
-        else{
-            return false;
+        media = soma/ocorrencias.size();
+        rodada++;
+
+        for(int i = 0; i < ocorrencias.size(); i++){
+            if(ocorrencias[i] >= media){
+                facil++;
+            }
+            else{
+                dificil++;
+            }
         }
+    }
+
+    jafoi.push_back(-1);
+
+    if(dificuldade == 1){
+        while(contAux < facil){
+            srand(time(nullptr));
+            indice = rand()%facil;
+            achou = 0;
+
+            for(int i = 0; i < jafoi.size(); i++){
+                if(indice == jafoi[i]){
+                    achou = 1;
+                    break;
+                }
+            }
+            if(achou == 0){
+                jafoi.push_back(indice);
+                palavra = palavras[indice];
+                cout<<palavra<<endl; //no caso, retorna a palavra gerada no jogo
+                contAux++;
+                return true;
+            }
+        }
+        return false;
+    }
+    else if(dificuldade == 2){
+        while(contAux < facil){
+            srand(time(nullptr));
+            indice = rand()%(facil + dificil);
+
+            achou = 0;
+
+            for(int i = 0; i < jafoi.size(); i++){
+                if(indice == jafoi[i]){
+                    achou = 1;
+                    break;
+                }
+            }
+            if(achou == 0){
+                jafoi.push_back(indice);
+                palavra = palavras[indice];
+                cout<<palavra<<endl; //no caso, retorna a palavra gerada no jogo
+                if(indice < facil){//isso aqui troca de lugar com a instrução de cima
+                    contAux++;
+                }
+                return true;
+            }
+        }
+        return false;
     }
     else if(dificuldade == 3){
-        if(onde < media){
-            this -> palavra = palavras[palOkHard];
-            return true;
+        while(contAux < dificil){
+            srand(time(nullptr));
+            indice = rand()%dificil;
+            
+            if(indice < facil){
+                indice += dificil;
+            }
+
+            achou = 0;
+
+            for(int i = 0; i < jafoi.size(); i++){
+                if(indice == jafoi[i]){
+                    achou = 1;
+                    break;
+                }
+            }
+            if(achou == 0){
+                jafoi.push_back(indice);
+                palavra = palavras[indice];
+                cout<<palavra<<endl; //no caso, retorna a palavra gerada no jogo
+                contAux++;
+                return true;
+            }
         }
-        else{
-            return false;
-        }
-    }
-    else{
         return false;
     }
 }
@@ -181,10 +217,10 @@ void Forca::carregaMenu(){
 
             tentativas = 6;         ///Tentativas restantes para o jogador acertar
             pontos = 0;             ///Pontos feitos pelo jogador
-            palOk = 0;              ///Palavras acertadas pelo jogador
-            palOkHard = 19;         ///Palavras acertadas pelo jogador no modo dificil
             acertadas.clear();      ///Limpa o vector de palavras acertadas
             carac.clear();          ///Limpa o vector de caracteres digitados
+            jafoi.clear();          ///Limpa o vector das palavras já utilizadas
+            contAux = 0;               ///Zera o contador auxiliar do geraPalavra()
 
             setDificuldade(d);
 
