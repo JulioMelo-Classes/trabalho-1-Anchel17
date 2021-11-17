@@ -15,16 +15,12 @@ int main(int argc, char* argv[]){
 
     ifstream palavras(play.getNomeArquivoPalavra());
     ifstream scores(play.getNomeArquivoScore());
-    cout<<"--------------------------------------------------------------"<<endl;
-    cout<<"Lendo arquivos de palavras e scores... aguarde"<<endl;
-    cout<<"--------------------------------------------------------------"<<endl;
+
     if(palavras.is_open() && scores.is_open()){
-        cout<<"Arquivos ok!"<<endl;
-        cout<<"--------------------------------------------------------------"<<endl;
         play.carregaMenu();
     }
     else{
-        cout<<"Ocorreu um erro na abertura dos arquivos."<<endl;
+        cout<<"Erro! verifique se digitou o caminho e o nome dos arquivos corretamente."<<endl;
         exit(0);
     }
     
