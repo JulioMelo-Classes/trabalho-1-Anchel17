@@ -62,15 +62,14 @@ void Forca::jogo(){
         if(dificuldade == 1){
             cout<<"--------------------------------------------------------------"<<endl;
             cout<<"iniciando jogo fácil!"<<endl;
-            cout<<"--------------------------------------------------------------"<<endl;
-            
+
             srand(time(nullptr));
             consoantes = contaConsoantes();
             //determinar quantas consoantes serão substituidas
             qtd = rand()%consoantes;
             cont = 0;
 
-            cout<<"Iniciando o jogo com "<<qtd<<" consoante(s) descoberta(s)"<<endl;
+            cout<<"\nIniciando o jogo com "<<qtd<<" consoante(s) descoberta(s)"<<endl;
             
             for(int i = 0; i < palavra.size(); i++){
                 vec[i] = "_";
@@ -96,7 +95,6 @@ void Forca::jogo(){
         else if(dificuldade == 2){
             cout<<"--------------------------------------------------------------"<<endl;
             cout<<"Iniciando jogo medio!"<<endl;
-            cout<<"--------------------------------------------------------------"<<endl;
             
             cont = 0;
             for(int i = 0; i < palavra.size(); i++){
@@ -104,11 +102,10 @@ void Forca::jogo(){
             }
         }
         //jogo no modo dificil
-        else{
+        else if (dificuldade == 3){
             cout<<"--------------------------------------------------------------"<<endl;
             cout<<"Iniciando jogo dificil!"<<endl;
-            cout<<"--------------------------------------------------------------"<<endl;
-
+            
             cont = 0;
             for(int i = 0; i < palavra.size(); i++){
                 vec[i] = "_";
