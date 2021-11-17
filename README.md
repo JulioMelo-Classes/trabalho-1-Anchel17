@@ -28,6 +28,6 @@ em seguida você é levado para o menu principal do jogo.
 
 # Funcionalidades não implementadas
 
-  - Geração aleatória de palavras;
+  - Validação dos arquivos
   - Pontuação extra caso o jogador adivinhe a palavras inteira e quando
 o jogador acerta a palavra inteira sem errar nenhuma letra.
