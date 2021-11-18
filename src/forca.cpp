@@ -253,7 +253,6 @@ void Forca::desenhaBoneco(int chance, string boneco[5][5]){
 
 void Forca::carregaMenu(){
     int op, d;
-    
     do{
         cout<<"Bem vindo ao jogo da forca! Por favor, selecione uma opcao:"<<endl;
         cout<<"1 - Iniciar jogo"<<endl;
@@ -315,6 +314,7 @@ void Forca::setNomeArquivoScore(string nomeScore){
 }
 
 void Forca::imprimeScore(){
+    
     ifstream ler;
     int volta;
     cout<<"\n\n\n";
@@ -330,8 +330,8 @@ void Forca::imprimeScore(){
     cout<<"\n";
 
     do{
-    cout<<"Pressione 1 e tecle Enter para voltar ao menu"<<endl;
-    cin>>volta;
+        cout<<"Pressione 1 e tecle Enter para voltar ao menu"<<endl;
+        cin>>volta;
     }while(volta != 1);
 
     carregaMenu();
