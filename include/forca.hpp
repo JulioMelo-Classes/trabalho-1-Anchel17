@@ -6,7 +6,7 @@
 #include <vector>
 
 /**
- * Documentacao Doxygen
+ * Implementação da classe Forca, para um jogo da forca
  */
 class Forca{
     private:
@@ -135,6 +135,11 @@ class Forca{
          * Método para imprimir scores
          */
         void imprimeScore();
+
+        /**
+         * Método para validar o arquivo de scores
+         */
+        void validaScore();
 };
 
 #endif
