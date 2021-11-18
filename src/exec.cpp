@@ -129,7 +129,7 @@ void Forca::jogo(){
             cout<<"Pontos: "<<pontos<<endl;
             cout<<"Letra: ";
             cin>>c;
-
+            
             cout<<endl;
             achou = 0;
             achouCarac = 0;
@@ -149,7 +149,6 @@ void Forca::jogo(){
                 }
                 
                 if(c == palavra[j] && vec[j] == "_"){
-                    cin.ignore();
                     carac.push_back(c);
                     achou++;
                     vec[j] = c;
@@ -169,13 +168,15 @@ void Forca::jogo(){
         }
 
         //se acertou todas as letras, vence
-        //PODE TRANSFORMAR EM UMA FUNCAO RECEBENDO O CONTADOR E IMPRIMINDO SE O PLAYER GANHOU OU NAO
         if(cont == palavra.size()){
             for(int i = 0; i < palavra.size(); i++){
                 cout<<vec[i];
             }
             cout<<endl;
             cout<<"Parabéns! você acertou a palavra!"<<endl;
+            if(tentativas == 6){
+                pontos++;
+            }
             
             acertadas.push_back(palavra);
         }
