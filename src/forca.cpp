@@ -7,6 +7,28 @@
 
 using namespace std;
 
+void Forca::validaScore(){
+    ifstream scores;
+    int ponto_virgula = 0;
+    char pv;
+
+    scores.open(arqScores, ios::out);
+    
+    while(!scores.eof()){
+        scores >> pv;
+        if(pv == ';'){
+            ponto_virgula++;
+        }
+    }
+
+    if(ponto_virgula % 3 != 0){
+        cout<<"Arquivo de scores inválido! verifique os \';\' do arquivo de score."<<endl;
+        exit(0);
+    }
+
+    scores.close();
+}
+
 bool Forca::geraPalavra(){
     int converte, achou;
     unsigned int soma = 0;
@@ -19,6 +41,7 @@ bool Forca::geraPalavra(){
         cout<<"--------------------------------------------------------------"<<endl;
         cout<<"Lendo arquivos de palavras e scores... aguarde"<<endl;
         cout<<"--------------------------------------------------------------"<<endl;
+        validaScore();
 
         arq.open(arqPalavras, ios::out);
 
@@ -36,12 +59,26 @@ bool Forca::geraPalavra(){
         for(int i = 0; i < recebe.size(); i++){
             if(i % 2 == 0){
                 palAux = recebe[i];
+                ///usa os valores da tabela ASCII
+                for(int i = 0; i < palAux.size(); i++){
+                    if((palAux[i] < 'A' || palAux[i] > 'Z') && palAux[i] < 'a' && palAux[i] != '-'){
+                        cout<<"Erro! a palavra \""<<palAux<<"\" possui caractere(s) inválido(s)!"<<endl;
+                        cout<<"Por favor, retire a palavra do arquivo de palavras ou modifique-a."<<endl;
+                        exit(0);
+                    }
+
+                    if((palAux[i] < 'a' || palAux[i] > 'z') && palAux[i] > 'Z' && palAux[i] != '-'){
+                        cout<<"Erro! a palavra \""<<palAux<<"\" tem um caractere(s) inválido(s)!"<<endl;
+                        cout<<"Por favor, retire a palavra do arquivo de palavras ou modifique-a."<<endl;
+                        exit(0);
+                    }
+                }
+
                 if(palAux.size() <= 4){
                     cout<<"Erro! existe palavra com menos de 5 letras no arquivo de palavras!"<<endl;
                     cout<<"Por favor, verifique o arquivo de palavras."<<endl;
                     exit(0);
                 }
-
                 palavras.push_back(recebe[i]);
             }
             else{
@@ -56,7 +93,7 @@ bool Forca::geraPalavra(){
                     soma += converte;
                     ocorrencias.push_back(converte);
                 }
-                ///Pega o erro ao tentar converter string em número, sendo que a string possui caracteres
+                ///Pega o erro ao tentar converter string de letra em número
                 catch(exception e){
                     cout<<"Erro! Alguma palavra está sem a frequência relativa!"<<endl;
                     cout<<"Por favor, erifique o arquivo de palavras."<<endl;
@@ -119,7 +156,6 @@ bool Forca::geraPalavra(){
             if(achou == 0){
                 jafoi.push_back(indice);
                 palavra = palavras[indice];
-                cout<<palavra<<endl; //no caso, retorna a palavra gerada no jogo
                 if(indice < facil){//isso aqui troca de lugar com a instrução de cima
                     contAux++;
                 }
@@ -148,7 +184,6 @@ bool Forca::geraPalavra(){
             if(achou == 0){
                 jafoi.push_back(indice);
                 palavra = palavras[indice];
-                cout<<palavra<<endl; //no caso, retorna a palavra gerada no jogo
                 contAux++;
                 return true;
             }
