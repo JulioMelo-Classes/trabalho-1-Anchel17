@@ -28,7 +28,7 @@ void Forca::jogo(){
         roda = geraPalavra();
         carac.clear();
         carac.push_back(' ');   ///só para inicializar o vector logo
-        
+                
         //VITÓRIA NO MODO FÁCIL.
         if(roda == false && dificuldade == 1){
             cout<<"Parabéns! você acertou todas as palavras do modo fácil!"<<endl;
@@ -69,7 +69,7 @@ void Forca::jogo(){
             qtd = rand()%consoantes;
             cont = 0;
 
-            cout<<"\nIniciando o jogo com "<<qtd<<" consoante(s) descoberta(s)"<<endl;
+            cout<<"\nPalavra gerada com "<<qtd<<" consoante(s) descoberta(s)"<<endl;
             
             for(int i = 0; i < palavra.size(); i++){
                 vec[i] = "_";
@@ -104,7 +104,7 @@ void Forca::jogo(){
         //jogo no modo dificil
         else if (dificuldade == 3){
             cout<<"--------------------------------------------------------------"<<endl;
-            cout<<"Iniciando jogo dificil!"<<endl;
+            cout<<"Hard mode!"<<endl;
             
             cont = 0;
             for(int i = 0; i < palavra.size(); i++){
@@ -139,18 +139,20 @@ void Forca::jogo(){
                         achouCarac = 1;
                         achou++;
                         cout<<"Você já digitou a letra "<<c<<endl;
+                        break;
                     }
                 }
 
-            for(int i = 0; i < palavra.size(); i++){  
+            for(int j = 0; j < palavra.size(); j++){  
                 if(achouCarac == 1){
                     break;
                 }
                 
-                if(c == palavra[i] && vec[i] == "_"){
+                if(c == palavra[j] && vec[j] == "_"){
+                    cin.ignore();
                     carac.push_back(c);
                     achou++;
-                    vec[i] = c;
+                    vec[j] = c;
                     cont++;
                     pontos++;
                 }
@@ -174,6 +176,7 @@ void Forca::jogo(){
             }
             cout<<endl;
             cout<<"Parabéns! você acertou a palavra!"<<endl;
+            
             acertadas.push_back(palavra);
         }
         else{
