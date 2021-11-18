@@ -28,6 +28,5 @@ em seguida você é levado para o menu principal do jogo.
 
 # Funcionalidades não implementadas
 
-  - Validação dos arquivos
-  - Pontuação extra caso o jogador adivinhe a palavras inteira e quando
-o jogador acerta a palavra inteira sem errar nenhuma letra.
+  - Validação completa do arquivo de scores
+  - Pontuação extra caso o jogador adivinhe a palavras inteira
