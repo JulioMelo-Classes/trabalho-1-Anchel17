@@ -14,7 +14,7 @@ void Forca::validaScore(){
 
     scores.open(arqScores, ios::out);
     
-    while(!scores.eof()){
+    while(!scores.eof()){ //como te falei, quando o arquivo tem um enter no fim esse tipo de construção dá problema
         scores >> pv;
         if(pv == ';'){
             ponto_virgula++;
